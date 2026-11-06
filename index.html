@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthQueue - Smart Patient Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="brand">
+        <div class="brand-icon">✚</div>
+        <div>
+            <h1>HealthQueue</h1>
+            <p>Smart Patient Management System</p>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <span class="connection-pill" id="connection-status">
+            <span class="status-dot"></span> Connecting...
+        </span>
+        <span class="date-display" id="current-date"></span>
+        <span class="hospital-name">✚ City Care Hospital</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h3>MAIN MENU</h3>
+
+        <nav>
+            <a href="#dashboard" data-view="dashboard" class="nav-link active">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#register" data-view="register" class="nav-link">
+                <span>＋</span> Register Patient
+            </a>
+
+            <a href="#records" data-view="records" class="nav-link">
+                <span>▤</span> Patient Records
+            </a>
+
+            <a href="#queue" data-view="queue" class="nav-link">
+                <span>☷</span> Patient Queue
+            </a>
+
+            <a href="#emergency" data-view="emergency" class="nav-link">
+                <span>🚨</span> Emergency
+            </a>
+        </nav>
+
+        <div class="side-note">
+            <div class="side-heart">✚</div>
+            <h3>HealthQueue</h3>
+            <p>Care Made Smarter</p>
+            <small>Your Health, Our Priority</small>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="welcome">
+            <div>
+                <h2 id="page-title">Dashboard Overview</h2>
+                <p>Manage patients and appointments easily.</p>
+            </div>
+            <span class="live"><span></span> System Active</span>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard-content">
+
+            <section class="cards" id="dashboard-summary">
+
+                <div class="card blue">
+                    <div class="card-icon">👥</div>
+                    <div>
+                        <h3>Total Patients</h3>
+                        <p id="total-patients">0</p>
+                    </div>
+                </div>
+
+                <div class="card green">
+                    <div class="card-icon">◷</div>
+                    <div>
+                        <h3>Waiting Patients</h3>
+                        <p id="waiting-patients">0</p>
+                    </div>
+                </div>
+
+                <div class="card red">
+                    <div class="card-icon">⚠</div>
+                    <div>
+                        <h3>Emergency Patients</h3>
+                        <p id="emergency-patients">0</p>
+                    </div>
+                </div>
+
+                <div class="card purple">
+                    <div class="card-icon">👨‍⚕️</div>
+                    <div>
+                        <h3>Available Doctors</h3>
+                        <p id="available-doctors">5</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="dashboard-grid">
+
+                <div class="panel analytics-panel">
+                    <div class="panel-heading">
+                        <h2>📊 Patient Analytics</h2>
+                        <span>Patient Overview</span>
+                    </div>
+
+                    <div class="chart-area">
+                        <canvas id="patient-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel emergency-panel">
+                    <div class="panel-heading">
+                        <h2>🚨 Emergency Queue</h2>
+                        <a href="#emergency" data-view="emergency">View All →</a>
+                    </div>
+
+                    <div id="emergency-list">
+                        <p class="empty-message">No emergency patients.</p>
+                    </div>
+                </div>
+
+                <!-- DOCTOR ALLOTTED -->
+                <div class="panel doctor-allotted-panel">
+                    <div class="panel-heading">
+                        <h2>👨‍⚕️ Doctor Allotted</h2>
+                    </div>
+
+                    <div id="dashboard-doctor-list">
+                        <p>No doctor allotted yet.</p>
+                    </div>
+                </div>
+
+                <div class="panel quick-panel">
+                    <div class="panel-heading">
+                        <h2>⚡ Quick Actions</h2>
+                    </div>
+
+                    <div class="quick-actions">
+                        <a href="#register" data-view="register"
+                           class="quick-btn blue-btn">
+                            ＋ Register Patient
+                        </a>
+
+                        <a href="#queue" data-view="queue"
+                           class="quick-btn green-btn">
+                            ☷ View Queue
+                        </a>
+
+                        <a href="#records" data-view="records"
+                           class="quick-btn purple-btn">
+                            ▤ View Records
+                        </a>
+
+                        <a href="#emergency" data-view="emergency"
+                           class="quick-btn orange-btn">
+                            🚨 Emergency
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+            <!-- DOCTOR ALLOTTED -->
+<section class="panel doctor-allotted-panel">
+    <div class="panel-heading">
+        <h2>👨‍⚕️ Doctor Allotted</h2>
+    </div>
+
+    <div id="dashboard-doctor-list">
+        <p class="empty-message">No doctor allotted yet.</p>
+    </div>
+</section>
+
+            <section class="buttons" id="dashboard-actions">
+                <a href="#register" class="btn" data-view="register">
+                    ＋ Register Patient
+                </a>
+
+                <a href="#records" class="btn outline" data-view="records">
+                    View Records →
+                </a>
+            </section>
+
+        </div>
+
+        <!-- PATIENT RECORDS -->
+        <section class="table-section" id="table-section" hidden>
+
+            <div class="table-heading">
+                <div>
+                    <h2 id="table-title">Patient Records</h2>
+                    <p>Patient details, doctor allotment and appointment information</p>
+                </div>
+
+                <span id="record-count">Patient List</span>
+            </div>
+
+            <div class="filter-bar">
+
+                <input type="search"
+                       id="search-patient"
+                       placeholder="⌕ Search patient, ID or doctor...">
+
+                <select id="priority-filter">
+                    <option value="All">All Priority</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="Normal">Normal</option>
+                </select>
+
+                <select id="status-filter">
+                    <option value="All">All Status</option>
+                    <option value="Waiting">Waiting</option>
+                    <option value="In Treatment">In Treatment</option>
+                    <option value="Completed">Completed</option>
+                </select>
+
+                <button type="button" class="btn clear-btn" id="clear-filter">
+                    Clear
+                </button>
+
+                <button type="button" class="btn" id="apply-filter">
+                    Filter
+                </button>
+
+            </div>
+
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Patient ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Problem</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Appointment</th>
+                            <th>Doctor Allotted</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="patient-table-body"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- REGISTER PATIENT -->
+        <section class="form-section" id="register-section" hidden>
+
+            <div class="form-heading">
+                <h2 id="form-title">Register New Patient</h2>
+                <p>Enter patient information below.</p>
+            </div>
+
+            <form id="patient-form">
+
+                <div class="form-grid">
+
+                    <label>Patient Name
+                        <input name="name" type="text"
+                               placeholder="Enter full name"
+                               required maxlength="80">
+                    </label>
+
+                    <label>Age
+                        <input name="age" type="number"
+                               placeholder="Enter age"
+                               min="1" max="120" required>
+                    </label>
+
+                    <label>Mobile Number
+                        <input name="phone" type="tel"
+                               placeholder="10 digit number"
+                               pattern="[0-9]{10}" required>
+                    </label>
+
+                    <label>Health Problem
+                        <input name="problem" type="text"
+                               placeholder="Enter health problem"
+                               required maxlength="120">
+                    </label>
+
+                    <label>Priority
+                        <select name="priority">
+                            <option value="Normal">Normal</option>
+                            <option value="Emergency">Emergency</option>
+                        </select>
+                    </label>
+
+                </div>
+
+                <!-- DOCTOR CONFIRMATION -->
+                <div class="doctor-info" id="doctor-info" hidden>
+                    <div class="doctor-info-icon">✚</div>
+                    <div>
+                        <h3>Doctor Allotted Successfully</h3>
+                        <p id="allotted-doctor-name">
+                            Doctor will be assigned
+                        </p>
+                        <small>
+                            Your allotted doctor is shown above.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" type="submit" id="save-button">
+                        Register Patient
+                    </button>
+
+                    <button class="btn outline" type="button"
+                            id="cancel-registration">
+                        Cancel
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+</div>
+
+<footer class="footer">
+    HealthQueue ©️ 2026 | Smart Patient Management System
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
